@@ -1,6 +1,6 @@
 {
   "name": "j-rolamo-gui",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Vittorio Valent <v.valent@contrader.it>",
   "productName": "J-Rolamo",
   "description": "A user-friendly GUI to manipulate J-Rolamo Backend applications",
