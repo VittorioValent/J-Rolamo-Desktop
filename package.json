@@ -1,6 +1,6 @@
 {
   "name": "j-rolamo-gui",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "author": "Vittorio Valent <v.valent@contrader.it>",
   "productName": "J-Rolamo",
   "description": "A user-friendly GUI to manipulate J-Rolamo Backend applications",
@@ -39,7 +39,7 @@
     "package": "electron-builder build -c.extraMetadata.main=build/public/electron.js --publish never",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "release": "release-it"
+    "release": "release-it --no-npm.publish"
   },
   "build": {
     "appId": "it.contrader.jrolamo",
@@ -52,7 +52,8 @@
     },
     "linux": {
       "target": [
-        "rpm"
+        "rpm",
+        "deb"
       ],
       "category": "Development"
     },

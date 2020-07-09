@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const childProcess = require("child_process");
 const isDev = require("electron-is-dev");
+const os = require("os");
 const path = require("path");
 const url = require("url");
 const { channels } = require("../src/Shared/constants");
@@ -84,16 +85,21 @@ ipcMain.handle(
   channels.RUN_NEWPROJECT_SCRIPT,
   (event, folder, package, projectname, run) => {
     const runFlag = run ? "-r" : "";
+    const scriptName =
+      os.platform() === "win32" ? "newproject.bat" : "newproject.sh";
+    const command = os.platform() === "win32" ? "" : "sh";
     const scriptPath = isDev
-      ? path.join(__dirname, "scripts/newproject.sh")
-      : path.join(__dirname, "../../../scripts/newproject.sh");
-    const process = childProcess.spawn("sh", [
+      ? path.join(__dirname, "scripts/" + scriptName)
+      : path.join(__dirname, "../../../scripts" + scriptName);
+
+    const process = childProcess.spawn(command, [
       scriptPath,
       folder,
       package,
       projectname,
       runFlag,
     ]);
+
     let lineBufferOut = "";
     process.stdout.on("data", (data) => {
       if (!data.toString().includes("\n")) {
