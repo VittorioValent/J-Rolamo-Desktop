@@ -1,0 +1,91 @@
+{
+  "name": "j-rolamo-gui",
+  "version": "0.1.0",
+  "author": "Vittorio Valent <v.valent@contrader.it>",
+  "productName": "J-Rolamo",
+  "description": "A user-friendly GUI to manipulate J-Rolamo Backend applications",
+  "main": "public/electron.js",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.10.2",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.10.0",
+    "@types/jest": "^26.0.0",
+    "@types/node": "^14.0.13",
+    "@types/react": "^16.9.36",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
+    "axios": "^0.19.2",
+    "electron-is-dev": "^1.2.0",
+    "electron-log": "^4.2.2",
+    "electron-store": "^5.2.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "typescript": "^3.9.5",
+    "yargs-parser": "^18.1.2"
+  },
+  "homepage": "./",
+  "scripts": {
+    "start": "export BROWSER=none && react-scripts start",
+    "start-electron": "export ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "clean": "rm -rf build dist",
+    "build": "react-scripts build",
+    "build-electron": "mkdir build/src && cp -r public/. build/public && cp -r public/icons/. build && cp -r src/Shared/. build/src/Shared",
+    "package": "electron-builder build -c.extraMetadata.main=build/public/electron.js --publish never",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "release": "release-it"
+  },
+  "build": {
+    "appId": "it.contrader.jrolamo",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    },
+    "linux": {
+      "target": [
+        "rpm"
+      ],
+      "category": "Development"
+    },
+    "extraResources": [
+      {
+        "from": "./src/Scripts/",
+        "to": "scripts",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@types/react-router-dom": "^5.1.5",
+    "electron": "^9.0.3",
+    "electron-builder": "^22.7.0",
+    "electron-devtools-installer": "^3.0.0",
+    "redux-devtools-extension": "^2.13.8",
+    "release-it": "^13.6.4"
+  },
+  "release-it": {
+    "github": {
+      "release": true
+    }
+  }
+}
