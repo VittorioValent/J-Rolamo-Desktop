@@ -4,7 +4,13 @@ const isDev = require("electron-is-dev");
 const os = require("os");
 const path = require("path");
 const url = require("url");
-const { channels } = require("../src/Shared/constants");
+const channels = {
+  APP_INFO: "app_info",
+  RUN_NEWPROJECT_SCRIPT: "run_newproject_script",
+  TOGGLE_DARK_THEME: "toggle_dark_theme",
+  GET_THEME: "get_theme",
+  OPEN_FOLDER: "open_folder",
+};
 const Store = require("electron-store");
 const store = new Store();
 const log = require("electron-log");
@@ -26,7 +32,7 @@ function createWindow() {
   const startUrl =
     process.env.ELECTRON_START_URL ||
     url.format({
-      pathname: path.join(__dirname, "../index.html"),
+      pathname: path.join(__dirname, "index.html"),
       protocol: "file:",
       slashes: true,
     });
@@ -89,11 +95,10 @@ ipcMain.handle(
       os.platform() === "win32" ? "newproject.bat" : "newproject.sh";
     const command = os.platform() === "win32" ? "" : "sh";
     const scriptPath = isDev
-      ? path.join(__dirname, "scripts/" + scriptName)
-      : path.join(__dirname, "../../../scripts" + scriptName);
+      ? path.join(__dirname, "scripts", scriptName)
+      : path.join(__dirname, "..", "..", "..", "scripts", scriptName);
 
-    const process = childProcess.spawn(command, [
-      scriptPath,
+    const process = childProcess.spawn(command + scriptPath, [
       folder,
       package,
       projectname,

@@ -14,6 +14,7 @@
     "@types/node": "^14.0.13",
     "@types/react": "^16.9.36",
     "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.5",
     "@types/react-redux": "^7.1.9",
     "axios": "^0.19.2",
     "electron-is-dev": "^1.2.0",
@@ -23,11 +24,10 @@
     "react-dom": "^16.8.6",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "latest",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "typescript": "^3.9.5",
-    "yargs-parser": "^18.1.2"
+    "typescript": "^3.9.5"
   },
   "homepage": "./",
   "scripts": {
@@ -36,7 +36,8 @@
     "clean": "rm -rf build dist",
     "build": "react-scripts build",
     "build-electron": "mkdir build/src && cp -r public/. build/public && cp -r public/icons/. build && cp -r src/Shared/. build/src/Shared",
-    "package": "electron-builder build -c.extraMetadata.main=build/public/electron.js --publish never",
+    "package": "electron-builder build -c.extraMetadata.main=build/public/electron.js --publish never -wl",
+    "dist": "electron-builder build -w",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "release": "release-it --no-npm.publish"
@@ -52,10 +53,13 @@
     },
     "linux": {
       "target": [
-        "rpm",
-        "deb"
+        "snap"
       ],
       "category": "Development"
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icons/icon.ico"
     },
     "extraResources": [
       {
@@ -77,12 +81,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.5",
     "electron": "^9.0.3",
     "electron-builder": "^22.7.0",
+    "electron-builder-squirrel-windows": "^22.7.0",
     "electron-devtools-installer": "^3.0.0",
     "redux-devtools-extension": "^2.13.8",
-    "release-it": "^13.6.4"
+    "release-it": "^13.6.5"
   },
   "release-it": {
     "github": {

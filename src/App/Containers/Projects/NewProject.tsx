@@ -3,7 +3,6 @@ import { channels } from "../../../Shared/constants";
 import {
   Button,
   FormControlLabel,
-  Box,
   Grid,
   FormGroup,
   TextField,

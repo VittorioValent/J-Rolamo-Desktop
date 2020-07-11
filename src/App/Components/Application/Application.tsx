@@ -22,8 +22,7 @@ export interface ApplicationProps {
 const Application: FunctionComponent<ApplicationProps> = (props) => {
   return (
     <Box
-      display="inline-flex"
-      flexWrap="wrap"
+      display="inline-table"
       flexDirection="row"
       alignItems="flex-start"
       m={1}
